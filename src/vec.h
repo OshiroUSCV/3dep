@@ -1,12 +1,8 @@
 // Includes: Standard
 #include <math.h>
 
-// Includes: DEBUG
-#if defined _DEBUG
-	#include <stdio.h>
-#endif
 
-#define __TEMPLATE_VEC__
+//#define __TEMPLATE_VEC__
 #if defined __TEMPLATE_VEC__
 
 template <class T, unsigned vecSize>
@@ -31,7 +27,7 @@ public:
 		{
 			val_dp += (v1.m_vec[i] * v2.m_vec[i]);
 		}
-		return dp;
+		return val_dp;
 	}
 
 	T GetNorm() const
@@ -106,8 +102,8 @@ class vec2f
 {
 protected:
 	// Properties
-	float m_x;
-	float m_y;
+	float mf_x;
+	float mf_y;
 
 public:
 	// Setup & Initialization
@@ -117,61 +113,97 @@ public:
 	// Getter/Setters
 	float& x()
 	{
-		return m_x;
+		return mf_x;
 	}
 
 	float x() const
 	{
-		return m_x;
+		return mf_x;
+	}
+
+	float& y()
+	{
+		return mf_y;
+	}
+
+	float y() const
+	{
+		return mf_y;
 	}
 
 	// Maths
-	static float DotProduct(const vec2f v1, const vec2f v2)
-	{
-		return (v1.m_x * v2.m_x + v1.m_y * v2.m_y);
-	}
+	static float DotProduct(const vec2f v1, const vec2f v2);
+	float GetNorm() const;
+	void Normalize();
 
-	float GetNorm() const
-	{
-		return sqrt(m_x * m_x + m_y * m_y);
-	}
-
-	void Normalize()
-	{
-		float vec_norm = GetNorm();
-		m_x /= vec_norm;
-		m_y /= vec_norm;
-	}
-
-	// Add
-	vec2f operator+(const vec2f v2) const
-	{
-		return vec2f(m_x + v2.m_x, m_y + v2.m_y);
-	}
-	// Subtract
-	vec2f operator-(const vec2f v2) const
-	{
-		return vec2f(m_x - v2.m_x, m_y - v2.m_y);
-	}
-	// Multiply (scalar)
-	vec2f operator*(const float fScalar) const
-	{
-		return vec2f(fScalar * m_x, fScalar * m_y);
-	}
-
-#if defined _DEBUG
+	///////////////////////
 	// DEBUG
-	void Print()
-	{
-		printf("(%f, %f)\n", m_x, m_y);
-	}
-#endif
+	void Print();
 };
+// vec2f: Operator Overloads
+vec2f operator+(const vec2f v1, const vec2f v2);
+vec2f operator-(const vec2f v1, const vec2f v2);
+vec2f operator*(const float fScalar, const vec2f vec);
 
 class vec3f
 {
+protected:
+	// Properties
+	float m_vec[3];
 
+public:
+	// Setup & Initialization
+	vec3f(float x = 0.0f, float y = 0.0f, float z = 0.0f);
+
+	// Getter/Setters
+	float operator[](int idx) const;
+	float& operator[](int idx);
+
+	float& x()
+	{
+		return m_vec[0];
+	}
+
+	float x() const
+	{
+		return m_vec[0];
+	}
+
+	float& y()
+	{
+		return m_vec[1];
+	}
+
+	float y() const
+	{
+		return m_vec[1];
+	}
+
+	float& z()
+	{
+		return m_vec[2];
+	}
+
+	float z() const
+	{
+		return m_vec[2];
+	}
+
+	// Maths
+	static float DotProduct(const vec3f v1, const vec3f v2);
+	static vec3f CrossProduct(const vec3f v1, const vec3f v2);
+	float GetNorm() const;
+	void Normalize();
+
+	///////////////////////
+	// DEBUG
+	void Print();
 };
+
+// vec3f: Operator Overloads
+vec3f operator+(const vec3f v1, const vec3f v2);
+vec3f operator-(const vec3f v1, const vec3f v2);
+vec3f operator*(const float fScalar, const vec3f vec);
 
 class vec4f
 {
