@@ -142,3 +142,84 @@ void vec3f::Print()
 	printf("(%f, %f, %f)\n", x(), y(), z());
 #endif
 }
+
+////////////////////
+// CLASS: vec4f
+////////////////////
+
+// Setup & Initialization
+vec4f::vec4f(float x /*= 0.0f*/, float y /*= 0.0f*/, float z /*= 0.0f*/, float w /*=0.0f*/) :
+	m_vec{x,y,z,w}
+{
+}
+
+// Accessor
+float vec4f::operator[](int idx) const
+{
+	return m_vec[idx];
+}
+
+float& vec4f::operator[](int idx)
+{
+	return m_vec[idx];
+}
+
+float vec4f::DotProduct(const vec4f v1, const vec4f v2)
+{
+	int val_dp = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		val_dp += (v1[i] * v2[i]);
+	}
+	return val_dp;
+}
+
+/*
+vec3f vec3f::CrossProduct(const vec3f v1, const vec3f v2)
+{
+	return vec3f
+		(
+			(v1.y() * v2.z()) - (v1.z() * v2.y()),
+			(v1.z() * v2.x()) - (v1.x() * v2.z()),
+			(v1.x() * v2.y()) - (v1.y() * v2.x())
+			);
+}
+*/
+
+float vec4f::GetNorm() const
+{
+	return sqrt(DotProduct(*this, *this));
+}
+void vec4f::Normalize()
+{
+	float vec_norm = GetNorm();
+	for (int i = 0; i < 4; i++)
+	{
+		m_vec[i] /= vec_norm;
+	}
+}
+
+// Operator Overload: Add
+vec4f operator+(const vec4f v1, const vec4f v2)
+{
+	return vec4f(v1.x() + v2.x(), v1.y() + v2.y(), v1.z() + v2.z(), v1.w() + v2.w());
+}
+// Operator Overload: Subtract
+vec4f operator-(const vec4f v1, const vec4f v2)
+{
+	return vec4f(v1.x() - v2.x(), v1.y() - v2.y(), v1.z() - v2.z(), v1.w() - v2.w());
+}
+
+// Operator Overload: Scalar Multiplication
+vec4f operator*(const float fScalar, const vec4f vec)
+{
+	return vec4f(fScalar * vec.x(), fScalar * vec.y(), fScalar * vec.z(), fScalar * vec.w());
+}
+
+// DEBUG
+void vec4f::Print()
+{
+#if defined _DEBUG
+	printf("(%f, %f, %f, %f)\n", x(), y(), z(), w());
+#endif
+}

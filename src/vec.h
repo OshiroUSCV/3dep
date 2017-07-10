@@ -207,6 +207,71 @@ vec3f operator*(const float fScalar, const vec3f vec);
 
 class vec4f
 {
+protected:
+	// Properties
+	float m_vec[4];
 
+public:
+	// Setup & Initialization
+	vec4f(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 0.0f);
+
+	// Getter/Setters
+	float operator[](int idx) const;
+	float& operator[](int idx);
+
+	float& x()
+	{
+		return m_vec[0];
+	}
+
+	float x() const
+	{
+		return m_vec[0];
+	}
+
+	float& y()
+	{
+		return m_vec[1];
+	}
+
+	float y() const
+	{
+		return m_vec[1];
+	}
+
+	float& z()
+	{
+		return m_vec[2];
+	}
+
+	float z() const
+	{
+		return m_vec[2];
+	}
+
+	float& w()
+	{
+		return m_vec[3];
+	}
+
+	float w() const
+	{
+		return m_vec[3];
+	}
+
+	// Maths
+	static float DotProduct(const vec4f v1, const vec4f v2);
+	//static vec3f CrossProduct(const vec3f v1, const vec3f v2);
+	float GetNorm() const;
+	void Normalize();
+
+	///////////////////////
+	// DEBUG
+	void Print();
 };
+
+// vec4f: Operator Overloads
+vec4f operator+(const vec4f v1, const vec4f v2);
+vec4f operator-(const vec4f v1, const vec4f v2);
+vec4f operator*(const float fScalar, const vec4f vec);
 #endif
