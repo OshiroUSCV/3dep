@@ -1,3 +1,6 @@
+#ifndef __VEC_H__
+#define __VEC_H__
+
 // Includes: Standard
 #include <math.h>
 
@@ -275,3 +278,5 @@ vec4f operator+(const vec4f v1, const vec4f v2);
 vec4f operator-(const vec4f v1, const vec4f v2);
 vec4f operator*(const float fScalar, const vec4f vec);
 #endif
+
+#endif // #ifndef __VEC_H__
