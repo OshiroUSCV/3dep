@@ -27,6 +27,7 @@ int main()
 	);
 	mat_det33.Print();
 	printf("Determinant: %f\n", mat_det33.GetDeterminant());
+	mat_det33.GetTranspose().Print();
 
 	/*
 	mat44 mat_test

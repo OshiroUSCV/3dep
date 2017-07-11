@@ -35,6 +35,21 @@ vec3f mat33::GetColumn(int idx) const
 	return vec_col;
 }
 
+mat33 mat33::GetTranspose() const
+{
+	mat33 mat_transpose;
+
+	for (int r = 0; r < 3; r++)
+	{
+		for (int c = 0; c < 3; c++)
+		{
+			mat_transpose[r][c] = m_rows[c][r];
+		}
+	}
+
+	return mat_transpose;
+}
+
 // Calculate determinant using the triple product
 float mat33::GetDeterminant() const
 {
@@ -130,6 +145,21 @@ vec4f mat44::GetColumn(int idx) const
 	return vec_col;
 }
 
+
+mat44 mat44::GetTranspose() const
+{
+	mat44 mat_transpose;
+
+	for (int r = 0; r < 4; r++)
+	{
+		for (int c = 0; c < 4; c++)
+		{
+			mat_transpose[r][c] = m_rows[c][r];
+		}
+	}
+
+	return mat_transpose;
+}
 
 // Retrieve minor matrix for specified indices (drop the row & column specified)
 mat33 mat44::GetMinor(int row, int col) const
