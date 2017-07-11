@@ -16,7 +16,19 @@ int main()
 	//v_1.Print();
 	//v_2.Print();
 	//v_3.Print();
+	
 
+	// Result: -306
+	mat33 mat_det33
+	(
+		vec3f(6,1,1),
+		vec3f(4,-2,5),
+		vec3f(2,8,7)
+	);
+	mat_det33.Print();
+	printf("Determinant: %f\n", mat_det33.GetDeterminant());
+
+	/*
 	mat44 mat_test
 	(
 		vec4f(1,2,3,4),
@@ -28,6 +40,6 @@ int main()
 
 	mat_test.Print();
 	mat_result.Print();
-
+	*/
 	while (true) {}
 }

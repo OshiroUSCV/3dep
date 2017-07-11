@@ -24,6 +24,8 @@ public:
 	// Accessor: Col
 	vec3f GetColumn(int idx) const;
 
+	float GetDeterminant() const;
+
 	// DEBUG
 	void Print() const;
 };
@@ -67,7 +69,8 @@ public:
 	vec4f GetColumn(int idx) const;
 
 	// 
-	mat33 GetMinor(int row, int col);
+	mat33 GetMinor(int row, int col) const;
+	float GetDeterminant() const;
 
 	// DEBUG
 	void Print() const;

@@ -35,6 +35,13 @@ vec3f mat33::GetColumn(int idx) const
 	return vec_col;
 }
 
+// Calculate determinant using the triple product
+float mat33::GetDeterminant() const
+{
+	vec3f cross_vec = vec3f::CrossProduct(m_rows[0], m_rows[1]);
+	return vec3f::DotProduct(cross_vec, m_rows[2]);
+}
+
 // Operator+: mat33 + mat33
 mat33 operator+(const mat33 m1, const mat33 m2)
 {
@@ -125,7 +132,7 @@ vec4f mat44::GetColumn(int idx) const
 
 
 // Retrieve minor matrix for specified indices (drop the row & column specified)
-mat33 mat44::GetMinor(int row, int col)
+mat33 mat44::GetMinor(int row, int col) const
 {
 	mat33 minor_mat;
 
@@ -153,6 +160,26 @@ mat33 mat44::GetMinor(int row, int col)
 	}
 
 	return minor_mat;
+}
+
+float mat44::GetDeterminant() const
+{
+	float result = 0;
+
+	// Default: Use row 0 :TODO: Maybe make adjustable somewhat?
+	int r = 0;
+
+	float sign;
+	for (int c = 0; c < 4; c++)
+	{
+		// Determine sign
+		sign = (((r + c) % 2) == 0 ? 1.0f : -1.0f);
+
+		mat33 mat_minor = GetMinor(r, c);
+
+		result += (sign * m_rows[r][c] * mat_minor.GetDeterminant());
+	}
+	return result;
 }
 
 // Operator+: mat44 + mat44
