@@ -4,7 +4,52 @@
 #include "vec.h"
 
 #define MAT_ROWS	// Matrix is row-major in the sense that it consists of an array of row vectors
-#if defined MAT_ROWS
+
+//////////////////////////////////////////////////////////
+// CLASS: mat33
+// DESCR: 3x3 matrix
+
+class mat33
+{
+protected:
+	vec3f m_rows[3];
+
+public:
+	// Setup & Initialization
+	mat33(vec3f r0 = vec3f(), vec3f r1 = vec3f(), vec3f r2 = vec3f());
+
+	// Accessor: Row
+	vec3f operator[](int idx) const;
+	vec3f& operator[](int idx);
+	// Accessor: Col
+	vec3f GetColumn(int idx) const;
+
+	// DEBUG
+	void Print() const;
+};
+
+// mat33: Operator Overloads
+mat33 operator+(const mat33 m1, const mat33 m2);
+mat33 operator-(const mat33 m1, const mat33 m2);
+mat33 operator*(const float fScalar, const mat33 mat);
+
+// 3x3 matrix  * column vec3 = column vec3
+vec3f operator*(const mat33 m1, const vec3f v1);
+// 3x3 matrix  * 3x3 matrix = 3x3 matrix
+mat33 operator*(const mat33 m1, const mat33 m2);
+
+const mat33 MAT33_IDENTITY
+(
+	vec3f(1.0f, 0.0f, 0.0f),
+	vec3f(0.0f, 1.0f, 0.0f),
+	vec3f(0.0f, 0.0f, 1.0f)
+	);
+
+//////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////
+// CLASS: mat44
+// DESCR: 4x4 matrix
 
 class mat44
 {
@@ -21,21 +66,14 @@ public:
 	// Accessor: Col
 	vec4f GetColumn(int idx) const;
 
+	// 
+	mat33 GetMinor(int row, int col);
+
 	// DEBUG
 	void Print() const;
 
 };
 
-#else
-
-class mat44
-{
-	vec4f m_cols[4];
-
-	mat44(vec4f c0 = vec4f(), vec4f c1 = vec4f(), vec4f c2 = vec4f(), vec4f c3 = vec4f());
-
-};
-#endif
 // mat44: Operator Overloads
 mat44 operator+(const mat44 m1, const mat44 m2);
 mat44 operator-(const mat44 m1, const mat44 m2);
@@ -55,5 +93,7 @@ const mat44 MAT44_IDENTITY
 		vec4f(0.0f, 0.0f,1.0f, 0.0f),
 		vec4f(0.0f, 0.0f, 0.0f,1.0f)
 	);
+//////////////////////////////////////////////////////////
+
 
 #endif // #ifndef __MAT_H__

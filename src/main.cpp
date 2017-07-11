@@ -24,9 +24,8 @@ int main()
 		vec4f(20,30,40,50),
 		vec4f(25,50,75,100)
 	);
-	mat44 mat_result = mat_test * MAT44_IDENTITY;
+	mat33 mat_result = mat_test.GetMinor(2,1);
 
-	MAT44_IDENTITY.Print();
 	mat_test.Print();
 	mat_result.Print();
 
