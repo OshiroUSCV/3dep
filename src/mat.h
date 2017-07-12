@@ -1,6 +1,8 @@
 #ifndef __MAT_H__
 #define __MAT_H__
 
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include "vec.h"
 
 #define MAT_ROWS	// Matrix is row-major in the sense that it consists of an array of row vectors
@@ -74,6 +76,13 @@ public:
 	mat33 GetMinor(int row, int col) const;
 	mat44 GetCofactorsMatrix() const;
 	float GetDeterminant() const;
+	bool TryGetInverse(mat44& rMatResult) const;
+
+	// 3D Manipulation
+	static mat44 GetMatrixRotXD(float fRotXDegrees);
+	static mat44 GetMatrixRotYD(float fRotYDegrees);
+	static mat44 GetMatrixRotZD(float fRotZDegrees);
+	static mat44 GetMatrixScale(float fScale);
 
 	// DEBUG
 	void Print() const;

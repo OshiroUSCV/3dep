@@ -4,7 +4,6 @@
 // Includes: Standard
 #include <math.h>
 
-
 //#define __TEMPLATE_VEC__
 #if defined __TEMPLATE_VEC__
 

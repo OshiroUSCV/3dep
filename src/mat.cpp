@@ -5,6 +5,13 @@
 #include <stdio.h>
 #endif
 
+// DEGREES-TO-RADIAN FUNCTION :TODO: Put somewhere else
+float DegreesToRadians(float fDegrees)
+{
+	return fDegrees * (M_PI / 180.0f);
+}
+
+
 //////////////////////////////////////////////////////////
 // CLASS: mat33
 // DESCR: 3x3 matrix
@@ -228,6 +235,19 @@ float mat44::GetDeterminant() const
 	return result;
 }
 
+bool mat44::TryGetInverse(mat44& rMatResult) const
+{
+	float mat_determinant = GetDeterminant();
+	bool b_inverse_exists = (mat_determinant != 0.0f); // :TODO: Add float safety
+
+	if (b_inverse_exists)
+	{
+		rMatResult = ((1.0f / mat_determinant) * (GetCofactorsMatrix().GetTranspose()));
+	}
+
+	return b_inverse_exists;
+}
+
 // Operator+: mat44 + mat44
 mat44 operator+(const mat44 m1, const mat44 m2)
 {
@@ -274,6 +294,70 @@ mat44 operator*(const mat44 m1, const mat44 m2)
 	}
 
 	return mat_result;
+}
+
+
+// 3D MANIPULATION
+
+mat44 mat44::GetMatrixScale(float fScale)
+{
+	mat44 mat_scale = MAT44_IDENTITY;
+
+	// Set the X/Y/Z diagonal values to desired scale value
+	for (int i = 0; i < 3; i++)
+	{
+		mat_scale[i][i] = fScale;
+	}
+
+	return mat_scale;
+}
+
+mat44 mat44::GetMatrixRotXD(float fRotXDegrees)
+{
+	mat44 mat_rot = MAT44_IDENTITY;
+
+	float rot_rad	= DegreesToRadians(fRotXDegrees);
+	float f_cos		= cos(rot_rad);
+	float f_sin		= sin(rot_rad);
+
+	mat_rot[1][1] = f_cos;
+	mat_rot[2][2] = f_cos;
+	mat_rot[1][2] = -f_sin;
+	mat_rot[2][1] = f_sin;
+	
+	return mat_rot;
+}
+
+mat44 mat44::GetMatrixRotYD(float fRotYDegrees)
+{
+	mat44 mat_rot = MAT44_IDENTITY;
+
+	float rot_rad = DegreesToRadians(fRotYDegrees);
+	float f_cos = cos(rot_rad);
+	float f_sin = sin(rot_rad);
+
+	mat_rot[0][0] = f_cos;
+	mat_rot[2][2] = f_cos;
+	mat_rot[0][2] = f_sin;
+	mat_rot[2][0] = -f_sin;
+
+	return mat_rot;
+}
+
+mat44 mat44::GetMatrixRotZD(float fRotZDegrees)
+{
+	mat44 mat_rot = MAT44_IDENTITY;
+
+	float rot_rad = DegreesToRadians(fRotZDegrees);
+	float f_cos = cos(rot_rad);
+	float f_sin = sin(rot_rad);
+
+	mat_rot[0][0] = f_cos;
+	mat_rot[1][1] = f_cos;
+	mat_rot[0][1] = -f_sin;
+	mat_rot[1][0] = f_sin;
+
+	return mat_rot;
 }
 
 void mat44::Print() const
