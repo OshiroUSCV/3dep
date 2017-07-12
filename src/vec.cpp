@@ -87,7 +87,7 @@ float& vec3f::operator[](int idx)
 
 float vec3f::DotProduct(const vec3f v1, const vec3f v2)
 {
-	int val_dp = 0;
+	float val_dp = 0;
 	for (int i = 0; i < 3; i++)
 	{
 		val_dp += (v1[i] * v2[i]);
