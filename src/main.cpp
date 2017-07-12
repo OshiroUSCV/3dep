@@ -29,6 +29,52 @@ int main()
 	printf("Determinant: %f\n", mat_det33.GetDeterminant());
 	mat_det33.GetTranspose().Print();
 
+	//
+	printf("Shenanigans\n");
+
+	// Result: 20
+	mat44 mat_det44
+	(
+		vec4f(3, 0, 2, -1),
+		vec4f(1, 2, 0, -2),
+		vec4f(4, 0, 6, -3),
+		vec4f(5, 0,  2, 0)
+	);
+	mat_det44.Print();
+
+	float det = mat_det44.GetDeterminant();
+	printf("Determinant: %f\n", det);
+
+	mat44 mat_inv = ((1.0f / det) * (mat_det44.GetCofactorsMatrix().GetTranspose()));
+	mat_inv.Print();
+	mat44 result_identity = mat_det44 * mat_inv;
+	result_identity.Print();
+
+	// MULTIPLICATION TEST
+	// RESULT:
+	// 96	68	69	69
+	// 24	56	18	52
+	// 58	95	71	92
+	// 90	107	81	142
+	printf("\n\nMULTIPLICATION\n");
+	mat44 mat_mult1
+	(
+		vec4f(5, 2, 6, 1),
+		vec4f(0, 6, 2, 0),
+		vec4f(3, 8, 1, 4),
+		vec4f(1, 8, 5, 6)
+	);
+
+	mat44 mat_mult2
+	(
+		vec4f(7, 5, 8, 0),
+		vec4f(1, 8, 2, 6),
+		vec4f(9, 4, 3, 8),
+		vec4f(5, 3, 7, 9)
+	);
+	mat44 result_mult = mat_mult1 * mat_mult2;
+	result_mult.Print();
+
 	/*
 	mat44 mat_test
 	(

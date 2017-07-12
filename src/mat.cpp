@@ -192,9 +192,25 @@ mat33 mat44::GetMinor(int row, int col) const
 	return minor_mat;
 }
 
+mat44 mat44::GetCofactorsMatrix() const
+{
+	mat44 mat_cofactors;
+
+	for (int c = 0; c < 4; c++)
+	{
+		for (int r = 0; r < 4; r++)
+		{
+			mat33 mat_minor = GetMinor(r, c);
+			mat_cofactors[r][c] = pow(-1, r + c) * mat_minor.GetDeterminant();
+		}
+	}
+
+	return mat_cofactors;
+}
+
 float mat44::GetDeterminant() const
 {
-	float result = 0;
+	float result = 0.0f;
 
 	// Default: Use row 0 :TODO: Maybe make adjustable somewhat?
 	int r = 0;
@@ -203,7 +219,7 @@ float mat44::GetDeterminant() const
 	for (int c = 0; c < 4; c++)
 	{
 		// Determine sign
-		sign = (((r + c) % 2) == 0 ? 1.0f : -1.0f);
+		sign = pow(-1, r + c); //(((r + c) % 2) == 0 ? 1.0f : -1.0f);
 
 		mat33 mat_minor = GetMinor(r, c);
 

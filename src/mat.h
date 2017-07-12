@@ -72,6 +72,7 @@ public:
 	// 
 	mat44 GetTranspose() const;
 	mat33 GetMinor(int row, int col) const;
+	mat44 GetCofactorsMatrix() const;
 	float GetDeterminant() const;
 
 	// DEBUG

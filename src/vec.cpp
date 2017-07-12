@@ -166,7 +166,7 @@ float& vec4f::operator[](int idx)
 
 float vec4f::DotProduct(const vec4f v1, const vec4f v2)
 {
-	int val_dp = 0;
+	float val_dp = 0;
 	for (int i = 0; i < 4; i++)
 	{
 		val_dp += (v1[i] * v2[i]);
