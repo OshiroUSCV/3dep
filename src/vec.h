@@ -1,6 +1,12 @@
 #ifndef __VEC_H__
 #define __VEC_H__
 
+/**
+ *	FILE: vec.h
+ *	2D, 3D, and 4D vector implementations. 
+ *	Written to study/reinforce 3D math knowledge.
+ */
+
 // Includes: Standard
 #include <math.h>
 
@@ -100,6 +106,13 @@ typedef vec<float, 3> vec3f;
 typedef vec<float, 4> vec4f;
 
 #else
+
+/**
+ *	CLASS: vec2f
+ *	Super-basic 2D vector. Written somewhat sloppily since 2D
+ *	vectors probably aren't as useful in 3D applications, other
+ *	than as screen/UI coordinates, I guess.
+ */
 class vec2f
 {
 protected:
@@ -147,20 +160,29 @@ vec2f operator+(const vec2f v1, const vec2f v2);
 vec2f operator-(const vec2f v1, const vec2f v2);
 vec2f operator*(const float fScalar, const vec2f vec);
 
+
+/**
+ *	CLASS: vec3f
+ *	3D vector class with the usual mathematical functions.
+ */
 class vec3f
 {
 protected:
+	///////////////////////////////////
 	// Properties
 	float m_vec[3];
 
 public:
+	///////////////////////////////////
 	// Setup & Initialization
 	vec3f(float x = 0.0f, float y = 0.0f, float z = 0.0f);
 
+	///////////////////////////////////
 	// Getter/Setters
 	float operator[](int idx) const;
 	float& operator[](int idx);
 
+	// Alternate accessors added for code readability.
 	float& x()
 	{
 		return m_vec[0];
@@ -191,7 +213,8 @@ public:
 		return m_vec[2];
 	}
 
-	// Maths
+	///////////////////////////////////
+	// Math
 	static float DotProduct(const vec3f v1, const vec3f v2);
 	static vec3f CrossProduct(const vec3f v1, const vec3f v2);
 	float GetNorm() const;
@@ -210,13 +233,16 @@ vec3f operator*(const float fScalar, const vec3f vec);
 class vec4f
 {
 protected:
+	///////////////////////////////////
 	// Properties
 	float m_vec[4];
 
 public:
+	///////////////////////////////////
 	// Setup & Initialization
 	vec4f(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 0.0f);
 
+	///////////////////////////////////
 	// Getter/Setters
 	float operator[](int idx) const;
 	float& operator[](int idx);
@@ -261,6 +287,7 @@ public:
 		return m_vec[3];
 	}
 
+	///////////////////////////////////
 	// Maths
 	static float DotProduct(const vec4f v1, const vec4f v2);
 	//static vec3f CrossProduct(const vec3f v1, const vec3f v2);
