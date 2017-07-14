@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef __MAT_H__
 #define __MAT_H__
 
@@ -7,8 +9,6 @@
 *	Written to study/reinforce 3D math knowledge.
 */
 
-
-#define _USE_MATH_DEFINES
 #include <math.h>
 #include "vec.h"
 

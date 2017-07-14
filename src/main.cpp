@@ -2,6 +2,7 @@
 
 #include "vec.h"
 #include "mat.h"
+#include "quat.h"
 
 
 int main()
@@ -74,6 +75,23 @@ int main()
 	);
 	mat44 result_mult = mat_mult1 * mat_mult2;
 	result_mult.Print();
+
+	///////////////////////////////////////
+	// Test: Quaternions
+	vec3f v_q1(2.0f, 0.0f, 0.0f);
+	vec3f v_r1(0.0f, 0.0f, 1.0f);
+	vec3f v_qr1 = Quaternion::RotateVector(v_q1, v_r1, 45.0f);
+	printf("Quat Result 1\n");
+	v_qr1.Print();
+
+
+	float sqrt22 = sqrt(2.0f) / 2.0f;
+	vec3f v_q2(2.0f, 0.0f, 0.0f);
+	vec3f v_r2(sqrt22, 0.0f, sqrt22);
+	vec3f v_qr2 = Quaternion::RotateVector(v_q2, v_r2, 90.0f);
+	printf("Quat Result 2\n");
+	v_qr2.Print();
+
 
 	/*
 	mat44 mat_test

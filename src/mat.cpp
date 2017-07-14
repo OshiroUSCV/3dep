@@ -5,13 +5,6 @@
 #include <stdio.h>
 #endif
 
-// DEGREES-TO-RADIAN FUNCTION :TODO: Put somewhere else
-float DegreesToRadians(float fDegrees)
-{
-	return fDegrees * (M_PI / 180.0f);
-}
-
-
 //////////////////////////////////////////////////////////
 // CLASS: mat33
 // DESCR: 3x3 matrix

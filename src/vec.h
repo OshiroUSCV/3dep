@@ -1,3 +1,4 @@
+#pragma once
 #ifndef __VEC_H__
 #define __VEC_H__
 
@@ -8,7 +9,14 @@
  */
 
 // Includes: Standard
+#define _USE_MATH_DEFINES
 #include <math.h>
+
+// DEGREES-TO-RADIAN FUNCTION :TODO: Put somewhere else
+static float DegreesToRadians(float fDegrees)
+{
+	return fDegrees * (M_PI / 180.0f);
+}
 
 //#define __TEMPLATE_VEC__
 #if defined __TEMPLATE_VEC__
@@ -106,7 +114,6 @@ typedef vec<float, 3> vec3f;
 typedef vec<float, 4> vec4f;
 
 #else
-
 /**
  *	CLASS: vec2f
  *	Super-basic 2D vector. Written somewhat sloppily since 2D
