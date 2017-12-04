@@ -237,6 +237,9 @@ vec3f operator+(const vec3f v1, const vec3f v2);
 vec3f operator-(const vec3f v1, const vec3f v2);
 vec3f operator*(const float fScalar, const vec3f vec);
 
+// :TEMP: Move to a more general 3D math class later
+vec3f GetTargetIntercept(vec3f posMsl, float fSpeedMsl, vec3f posTarget, vec3f velTarget);
+
 class vec4f
 {
 protected:

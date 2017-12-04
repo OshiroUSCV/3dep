@@ -111,7 +111,7 @@ float vec3f::GetNorm() const
 }
 void vec3f::Normalize()
 {
-	float vec_norm = GetNorm();
+	float vec_norm = GetNorm();	// :NOTE: Not verifying that our magnitude is > 0
 	for (int i = 0; i < 3; i++)
 	{
 		m_vec[i] /= vec_norm;
@@ -133,6 +133,75 @@ vec3f operator-(const vec3f v1, const vec3f v2)
 vec3f operator*(const float fScalar, const vec3f vec)
 {
 	return vec3f(fScalar * vec.x(), fScalar * vec.y(), fScalar * vec.z());
+}
+
+/**
+ *	Calculate directional vector for a missile moving at a given speed
+ *	to intercept a target given a constant velocity vector for the target
+ *
+ *	@param	posMsl		Initial position of the missile
+ *	@param	fSpeedMsl	Speed of the missile (constant)
+ *	@param	posTarget	Initial position of the target
+ *	@param	velTarget	Velocity vector of target
+ *	@return	Unit vector pointing in the direction to intercept target (or along same vector as target, if cannot intercept)
+ */
+vec3f GetTargetIntercept(vec3f posMsl, float fSpeedMsl, vec3f posTarget, vec3f velTarget)
+{
+	// First, calculate vector from missile to target
+	vec3f vec_m2t	= posTarget - posMsl;
+	// Convert to unit vector
+	vec3f uvec_m2t	= (1.0f / vec_m2t.GetNorm()) * vec_m2t;
+	// Also, calculate the target velocity's magnitude for later
+	float mag_vt	= velTarget.GetNorm();
+
+	///////////////////////////
+	// Next, project the target velocity onto the m2t vector to determine parallel (p) & orthogonal (o) component vectors
+	vec3f vel_target_o, vel_target_p;
+
+	// Start by calculating the dot product between our target velocity vector and the m2t vector
+	float dot_vt_m2t	= vec3f::DotProduct(velTarget, uvec_m2t);
+	//// More roundabout version 
+	//// With the dot product, we can determine the angle between the two vectors
+	//float angle_vt_m2t	= acos(dot_vt_m2t / mag_vt);	// :NOTE: We don't need to divide by the magnitude of vt_m2t since it is a unit vector
+	//// Use the angle and the target velocity vector's magnitude to get magnitude of the parallel velocity component
+	//float mag_vt_p = mag_vt * cos(angle_vt_m2t);
+	//// Use parallel magnitude and unit vector to determine parallel velocity vector
+	//vel_target_p = mag_vt_p * uvec_m2t;
+
+	// Next, we can project our velocity onto the parallel vector via the dot product
+	vel_target_p = dot_vt_m2t * uvec_m2t;
+	
+	
+	// Finally, we can trivially calculate the orthogonal velocity component
+	vel_target_o	= velTarget - vel_target_p;
+	///////////////////////////
+	// Finally, determine the directional vector required for the missile intercept by calculating the orthogonal and parallel components
+	vec3f vel_msl;
+	vec3f vel_msl_o, vel_msl_p;
+
+	// The orthogonal vector for our target velocity and our missile velocity must be the same!
+	vel_msl_o = vel_target_o;
+
+	// Sanity Check: Is the speed of our orthogonal vector higher than our missile's speed?
+	// If so, we cannot intercept! Just return the same direction that the target is moving.
+	float mag_msl_o = vel_msl_o.GetNorm();
+	if (mag_msl_o > fSpeedMsl)
+	{
+		vel_msl = velTarget;
+	}
+	// Otherwise, proceed
+	else
+	{
+		// We can determine the magnitude of the parallel missile velocity vector via pythagorean theorum
+		float mag_msl_p	= (float)(sqrt((fSpeedMsl * fSpeedMsl) - (mag_msl_o * mag_msl_o)));
+		// Finally, apply magnitude to unit parallel missile velocity vector
+		vel_msl_p		= mag_msl_p * uvec_m2t;
+
+		// The missile velocity is composed of the orthogonal and parallel component velocities
+		vel_msl = vel_msl_o + vel_msl_p;
+	}
+	// Normalize & return
+	return ((1.0f / vel_msl.GetNorm()) * vel_msl);
 }
 
 // DEBUG
