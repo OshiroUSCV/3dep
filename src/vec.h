@@ -15,7 +15,7 @@
 // DEGREES-TO-RADIAN FUNCTION :TODO: Put somewhere else
 static float DegreesToRadians(float fDegrees)
 {
-	return fDegrees * (M_PI / 180.0f);
+	return (float)(fDegrees * (M_PI / 180.0f));
 }
 
 //#define __TEMPLATE_VEC__
@@ -239,6 +239,8 @@ vec3f operator*(const float fScalar, const vec3f vec);
 
 // :TEMP: Move to a more general 3D math class later
 vec3f GetTargetIntercept(vec3f posMsl, float fSpeedMsl, vec3f posTarget, vec3f velTarget);
+float GetInterceptTime(vec3f pos1, vec3f vel1, vec3f pos2, vec3f vel2);
+vec3f GetInterceptPoint(vec3f posSrc, vec3f velSrc, vec3f posTarget, vec3f velTarget);
 
 class vec4f
 {

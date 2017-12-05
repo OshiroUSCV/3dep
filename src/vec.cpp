@@ -204,6 +204,42 @@ vec3f GetTargetIntercept(vec3f posMsl, float fSpeedMsl, vec3f posTarget, vec3f v
 	return ((1.0f / vel_msl.GetNorm()) * vel_msl);
 }
 
+/**
+ *	Calculates time until interception for two entities given their positions and velocities
+ *	@return	Time until interception
+ */
+float GetInterceptTime(vec3f pos1, vec3f vel1, vec3f pos2, vec3f vel2)
+{
+	// First, calculate vector from one entity to the other
+	vec3f vec_dir = pos2 - pos1;
+	// Convert to unit vector
+	vec3f uvec_dir = (1.0f / vec_dir.GetNorm()) * vec_dir;
+
+	// Project our two velocity vectors onto the direction vector
+	vec3f vel_p_1, vel_p_2;	// Parallel component vectors for vel1 & vel2
+	vel_p_1 = (vec3f::DotProduct(vel1, uvec_dir) * uvec_dir);
+	vel_p_2 = (vec3f::DotProduct(vel2, uvec_dir) * uvec_dir);
+
+	// Determine intercept parallel velocity: how much closer the two targets become on the parallel axis
+	vec3f vel_intercept_p = vel_p_2 - vel_p_1;
+	float mag_intercept_p = vel_intercept_p.GetNorm();
+	// Divide initial distance between the entities by the scalar speed of parallel intercepts to determine how long until intercept
+	return (vec_dir.GetNorm() / mag_intercept_p);
+}
+
+/**
+ *	@param posSrc	Source position 
+ */
+vec3f GetInterceptPoint(vec3f pos1, vec3f vel1, vec3f pos2, vec3f vel2)
+{
+	// Determine time until intercept
+	float intercept_time = GetInterceptTime(pos1, vel1, pos2, vel2);
+
+	// Simply apply time until intercept to the velocity and add it to initial position (could also be done wi/ pos2)
+	vec3f point_intercept = pos1 + (intercept_time * vel1);
+	return point_intercept;
+}
+
 // DEBUG
 void vec3f::Print()
 {
