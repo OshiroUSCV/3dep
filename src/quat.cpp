@@ -59,11 +59,18 @@ Quaternion Quaternion::GetInverse() const
 	return ((1.0f / pow(GetNorm(), 2)) * GetConjugate());
 }
 
-vec3f Quaternion::RotateVector(vec3f vecInitial, vec3f vecRot, float angleDegrees)
+
+/**
+*	Rotate a direction vector around a given vector by a given angle (degrees)
+*	@param	vecInitial		Initial direction vector
+*	@param	vecRot			Vector to rotate around
+*	@param	angleRadians	How much to rotate around vecRot (radians)
+*	@return direction		Rotated direction vector
+**/
+vec3f Quaternion::RotateVectorR(vec3f vecInitial, vec3f vecRot, float angleRadians)
 {
-	float angle_rad = DegreesToRadians(angleDegrees);
-	float cos_hrot = cos(angle_rad / 2.0f);
-	float sin_hrot = sin(angle_rad / 2.0f);
+	float cos_hrot = cos(angleRadians / 2.0f);
+	float sin_hrot = sin(angleRadians / 2.0f);
 
 	// Normalize vector
 	vecRot.Normalize();
@@ -76,6 +83,18 @@ vec3f Quaternion::RotateVector(vec3f vecInitial, vec3f vecRot, float angleDegree
 	Quaternion result = q * vecInitial;
 	result = result * q_inv;
 	return result.GetImaginaryVector();
+}
+
+/**
+*	Rotate a direction vector around a given vector by a given angle (degrees)
+*	@param	vecInitial		Initial direction vector
+*	@param	vecRot			Vector to rotate around
+*	@param	angleDegrees	How much to rotate around vecRot (degrees)
+*	@return direction		Rotated direction vector
+**/
+vec3f Quaternion::RotateVectorD(vec3f vecInitial, vec3f vecRot, float angleDegrees)
+{
+	return RotateVectorR(vecInitial, vecRot, DegreesToRadians(angleDegrees));
 }
 
 

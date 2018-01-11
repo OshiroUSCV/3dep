@@ -1,5 +1,4 @@
 #pragma once
-
 #ifndef __QUAT_H__
 #define __QUAT_H__
 
@@ -74,7 +73,8 @@ public:
 
 	void Normalize();
 
-	static vec3f RotateVector(vec3f vecInitial, vec3f vecRot, float angleDegrees);
+	static vec3f RotateVectorR(vec3f vecInitial, vec3f vecRot, float angleRadians);
+	static vec3f RotateVectorD(vec3f vecInitial, vec3f vecRot, float angleDegrees);
 };
 
 Quaternion operator*(float fScalar, Quaternion q);

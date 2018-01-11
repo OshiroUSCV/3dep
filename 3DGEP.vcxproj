@@ -21,11 +21,13 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\mat.cpp" />
+    <ClCompile Include="src\math3d.cpp" />
     <ClCompile Include="src\quat.cpp" />
     <ClCompile Include="src\vec.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\mat.h" />
+    <ClInclude Include="src\math3d.h" />
     <ClInclude Include="src\quat.h" />
     <ClInclude Include="src\vec.h" />
   </ItemGroup>
