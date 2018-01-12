@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3DGEP", "3DGEP.vcxproj", "{9CEDCAF3-DC70-4BDF-8AC7-E6BE8E3194EC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_3DGEP", "Prj_UnitTests\UnitTest_3DGEP.vcxproj", "{63FCB96D-ABD4-4C53-8D13-29C409590AF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{9CEDCAF3-DC70-4BDF-8AC7-E6BE8E3194EC}.Release|x64.Build.0 = Release|x64
 		{9CEDCAF3-DC70-4BDF-8AC7-E6BE8E3194EC}.Release|x86.ActiveCfg = Release|Win32
 		{9CEDCAF3-DC70-4BDF-8AC7-E6BE8E3194EC}.Release|x86.Build.0 = Release|Win32
+		{63FCB96D-ABD4-4C53-8D13-29C409590AF0}.Debug|x64.ActiveCfg = Debug|x64
+		{63FCB96D-ABD4-4C53-8D13-29C409590AF0}.Debug|x64.Build.0 = Debug|x64
+		{63FCB96D-ABD4-4C53-8D13-29C409590AF0}.Debug|x86.ActiveCfg = Debug|Win32
+		{63FCB96D-ABD4-4C53-8D13-29C409590AF0}.Debug|x86.Build.0 = Debug|Win32
+		{63FCB96D-ABD4-4C53-8D13-29C409590AF0}.Release|x64.ActiveCfg = Release|x64
+		{63FCB96D-ABD4-4C53-8D13-29C409590AF0}.Release|x64.Build.0 = Release|x64
+		{63FCB96D-ABD4-4C53-8D13-29C409590AF0}.Release|x86.ActiveCfg = Release|Win32
+		{63FCB96D-ABD4-4C53-8D13-29C409590AF0}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
