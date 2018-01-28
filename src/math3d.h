@@ -16,4 +16,8 @@ vec3f GetInterceptPoint(vec3f posSrc, vec3f velSrc, vec3f posTarget, vec3f velTa
 // 2D
 bool IsWithinRange2D(vec2f posSentry, vec2f dirSentry, float rangeSentry, float halfAngleSentry, vec2f posCheck);
 
+float Lerp(float f1, float f2, float t);
+vec2f Lerp2D(vec2f p0, vec2f p1, float t);
+vec3f Lerp3D(vec3f p0, vec3f p1, float t);
+
 #endif	// #define MATH3D_H

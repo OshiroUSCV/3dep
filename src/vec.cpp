@@ -11,9 +11,9 @@
 ////////////////////
 
 // Setup & Initialization
-vec2f::vec2f(float x, float y) :
-	mf_x(x),
-	mf_y(y)
+vec2f::vec2f(float fX, float fY) :
+	x(fX),
+	y(fY)
 {
 }
 
@@ -24,42 +24,42 @@ vec2f::vec2f() : vec2f(0.0f, 0.0f)
 // Maths
 float vec2f::DotProduct(const vec2f v1, const vec2f v2)
 {
-	return (v1.mf_x * v2.mf_x + v1.mf_y * v2.mf_y);
+	return (v1.x * v2.x + v1.y * v2.y);
 }
 
 float vec2f::GetNorm() const
 {
-	return (float) sqrt(mf_x * mf_x + mf_y * mf_y);
+	return (float) sqrt(x * x + y * y);
 }
 
 void vec2f::Normalize()
 {
 	float vec_norm = GetNorm();
-	mf_x /= vec_norm;
-	mf_y /= vec_norm;
+	x /= vec_norm;
+	y /= vec_norm;
 }
 
 // Add
 vec2f operator+(const vec2f v1, const vec2f v2)
 {
-	return vec2f(v1.x() + v2.x(), v1.y() + v2.y());
+	return vec2f(v1.x + v2.x, v1.y + v2.y);
 }
 // Subtract
 vec2f operator-(const vec2f v1, const vec2f v2)
 {
-	return vec2f(v1.x() - v2.x(), v1.y() - v2.y());
+	return vec2f(v1.x - v2.x, v1.y - v2.y);
 }
 
 vec2f operator*(const float fScalar, const vec2f vec)
 {
-	return vec2f(fScalar * vec.x(), fScalar * vec.y());
+	return vec2f(fScalar * vec.x, fScalar * vec.y);
 }
 
 // DEBUG
 void vec2f::Print()
 {
 #if defined _DEBUG
-	printf("(%f, %f)\n", mf_x, mf_y);
+	printf("(%f, %f)\n", x, y);
 #endif
 }
 

@@ -4,11 +4,23 @@
 #include "mat.h"
 #include "quat.h"
 #include "math3d.h"
+#include "curve.h"
 
 
 int main()
 {
 	printf("Hello World!\n");
+
+	// Bezier tests
+	printf("== BEZIER TESTS ==\n");
+	vec2f p1(100, 500);
+	vec2f p2(600, 200);
+	vec2f p3(1000, 400);
+	Lerp2D(p1, p2, 0.1f).Print();
+	Bezier2DQuad bq(p1, p2, p3);
+
+	bq.GetPoint(0.1f).Print();
+
 
 	//vec4f v_1(3, 4);
 	//v_1 = 3 * v_1;

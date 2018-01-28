@@ -115,7 +115,7 @@ bool IsWithinRange2D(vec2f posSentry, vec2f dirSentry, float rangeSentry, float 
 {
 	// Check: Range
 	vec2f vec_distance	= posTarget - posSentry;
-	float f_distance_sq = vec_distance.x() * vec_distance.x() + vec_distance.y() * vec_distance.y();
+	float f_distance_sq = vec_distance.x * vec_distance.x + vec_distance.y * vec_distance.y;
 	// If we're outside the maximum range of the sentry, we can exit early and improve performance
 	if (f_distance_sq > (rangeSentry * rangeSentry))	// :NOTE: Compare squared values of distance and range to avoid an unnecessary sqrt calculation
 	{
@@ -129,4 +129,47 @@ bool IsWithinRange2D(vec2f posSentry, vec2f dirSentry, float rangeSentry, float 
 	float angle = acosf(dp / (dirSentry.GetNorm() * vec_distance.GetNorm()));	// :NOTE: Can be optimized to avoid acos calculation, I think?
 
 	return (angle <= halfAngleSentry);
+}
+
+
+float Lerp(float f1, float f2, float t)
+{
+	return (((1.0f - t) * f1) + (t * f2));
+}
+
+/**
+ *	Perform linear interpolation between two 2D points on range [0.0f,1.0f]
+ *	@param p0	Initial position (2D)
+ *	@param p1	Ending position (2D)
+ *	@param t	
+**/
+vec2f Lerp2D(vec2f p0, vec2f p1, float t)
+{
+	//assert(t >= 0.0f && t <= 1.0f);
+
+	// Determine X & Y values based on t
+	vec2f point;
+	point.x = ((1.0f - t) * p0.x) + (t * p1.x);
+	point.y = ((1.0f - t) * p0.y) + (t * p1.y);
+
+	return point;
+}
+
+/**
+*	Perform linear interpolation between two 3D points on range [0.0f,1.0f]
+*	@param p0	Initial position (3D)
+*	@param p1	Ending position (3D)
+*	@param t
+**/
+vec3f Lerp3D(vec3f p0, vec3f p1, float t)
+{
+	//assert(t >= 0.0f && t <= 1.0f);
+
+	// Determine X & Y values based on t
+	vec3f point;
+	point.x() = ((1.0f - t) * p0.x()) + (t * p1.x());
+	point.y() = ((1.0f - t) * p0.y()) + (t * p1.y());
+	point.z() = ((1.0f - t) * p0.z()) + (t * p1.z());
+
+	return point;
 }

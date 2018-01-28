@@ -120,38 +120,19 @@ typedef vec<float, 4> vec4f;
  *	vectors probably aren't as useful in 3D applications, other
  *	than as screen/UI coordinates, I guess.
  */
-class vec2f
+struct vec2f
 {
-protected:
-	// Properties
-	float mf_x;
-	float mf_y;
+// Member Variables
+public:
+	// Properties (Not using traditional notation for ease of use)
+	float x;
+	float y;
 
+// Member Functions
 public:
 	// Setup & Initialization
 	vec2f();
-	vec2f(float x, float y);
-
-	// Getter/Setters
-	float& x()
-	{
-		return mf_x;
-	}
-
-	float x() const
-	{
-		return mf_x;
-	}
-
-	float& y()
-	{
-		return mf_y;
-	}
-
-	float y() const
-	{
-		return mf_y;
-	}
+	vec2f(float fX, float fY);
 
 	// Maths
 	static float DotProduct(const vec2f v1, const vec2f v2);
