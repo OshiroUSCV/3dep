@@ -15,9 +15,9 @@ vec3f GetTargetIntercept(vec3f posMsl, float fSpeedMsl, vec3f posTarget, vec3f v
 	// First, calculate vector from missile to target
 	vec3f vec_m2t = posTarget - posMsl;
 	// Convert to unit vector
-	vec3f uvec_m2t = (1.0f / vec_m2t.GetNorm()) * vec_m2t;
+	vec3f uvec_m2t = (1.0f / vec_m2t.Mag()) * vec_m2t;
 	// Also, calculate the target velocity's magnitude for later
-	float mag_vt = velTarget.GetNorm();
+	float mag_vt = velTarget.Mag();
 
 	///////////////////////////
 	// Next, project the target velocity onto the m2t vector to determine parallel (p) & orthogonal (o) component vectors
@@ -49,7 +49,7 @@ vec3f GetTargetIntercept(vec3f posMsl, float fSpeedMsl, vec3f posTarget, vec3f v
 
 	// Sanity Check: Is the speed of our orthogonal vector higher than our missile's speed?
 	// If so, we cannot intercept! Just return the same direction that the target is moving.
-	float mag_msl_o = vel_msl_o.GetNorm();
+	float mag_msl_o = vel_msl_o.Mag();
 	if (mag_msl_o > fSpeedMsl)
 	{
 		vel_msl = velTarget;
@@ -66,7 +66,7 @@ vec3f GetTargetIntercept(vec3f posMsl, float fSpeedMsl, vec3f posTarget, vec3f v
 		vel_msl = vel_msl_o + vel_msl_p;
 	}
 	// Normalize & return
-	return ((1.0f / vel_msl.GetNorm()) * vel_msl);
+	return ((1.0f / vel_msl.Mag()) * vel_msl);
 }
 
 /**
@@ -78,7 +78,7 @@ float GetInterceptTime(vec3f pos1, vec3f vel1, vec3f pos2, vec3f vel2)
 	// First, calculate vector from one entity to the other
 	vec3f vec_dir = pos2 - pos1;
 	// Convert to unit vector
-	vec3f uvec_dir = (1.0f / vec_dir.GetNorm()) * vec_dir;
+	vec3f uvec_dir = (1.0f / vec_dir.Mag()) * vec_dir;
 
 	// Project our two velocity vectors onto the direction vector
 	vec3f vel_p_1, vel_p_2;	// Parallel component vectors for vel1 & vel2
@@ -87,9 +87,9 @@ float GetInterceptTime(vec3f pos1, vec3f vel1, vec3f pos2, vec3f vel2)
 
 	// Determine intercept parallel velocity: how much closer the two targets become on the parallel axis
 	vec3f vel_intercept_p = vel_p_2 - vel_p_1;
-	float mag_intercept_p = vel_intercept_p.GetNorm();
+	float mag_intercept_p = vel_intercept_p.Mag();
 	// Divide initial distance between the entities by the scalar speed of parallel intercepts to determine how long until intercept
-	return (vec_dir.GetNorm() / mag_intercept_p);
+	return (vec_dir.Mag() / mag_intercept_p);
 }
 
 /**
@@ -126,7 +126,7 @@ bool IsWithinRange2D(vec2f posSentry, vec2f dirSentry, float rangeSentry, float 
 	// Use dot product between dirSentry & vec_distance to determine angle between the two vectors
 	float dp	= vec2f::DotProduct(dirSentry, vec_distance);
 	// Angle between the direction sentry is facing and the direction towards the target
-	float angle = acosf(dp / (dirSentry.GetNorm() * vec_distance.GetNorm()));	// :NOTE: Can be optimized to avoid acos calculation, I think?
+	float angle = acosf(dp / (dirSentry.Mag() * vec_distance.Mag()));	// :NOTE: Can be optimized to avoid acos calculation, I think?
 
 	return (angle <= halfAngleSentry);
 }

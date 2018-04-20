@@ -27,16 +27,21 @@ float vec2f::DotProduct(const vec2f v1, const vec2f v2)
 	return (v1.x * v2.x + v1.y * v2.y);
 }
 
-float vec2f::GetNorm() const
+float vec2f::Mag() const
 {
 	return (float) sqrt(x * x + y * y);
 }
 
 void vec2f::Normalize()
 {
-	float vec_norm = GetNorm();
+	float vec_norm = Mag();
 	x /= vec_norm;
 	y /= vec_norm;
+}
+
+vec2f operator-(const vec2f v)
+{
+	return (-1.0f * v);
 }
 
 // Add
@@ -105,18 +110,24 @@ vec3f vec3f::CrossProduct(const vec3f v1, const vec3f v2)
 	);
 }
 
-float vec3f::GetNorm() const
+float vec3f::Mag() const
 {
 	return (float) sqrt(DotProduct(*this, *this));
 }
 
 void vec3f::Normalize()
 {
-	float vec_norm = GetNorm();	// :NOTE: Not verifying that our magnitude is > 0
+	float vec_norm = Mag();	// :NOTE: Not verifying that our magnitude is > 0
 	for (int i = 0; i < 3; i++)
 	{
 		m_vec[i] /= vec_norm;
 	}
+}
+
+// Operator Overload: Negative
+vec3f operator-(const vec3f v)
+{
+	return (-1.0f * v);
 }
 
 // Operator Overload: Add
@@ -189,13 +200,13 @@ vec3f vec3f::CrossProduct(const vec3f v1, const vec3f v2)
 }
 */
 
-float vec4f::GetNorm() const
+float vec4f::Mag() const
 {
 	return (float) sqrt(DotProduct(*this, *this));
 }
 void vec4f::Normalize()
 {
-	float vec_norm = GetNorm();
+	float vec_norm = Mag();
 	for (int i = 0; i < 4; i++)
 	{
 		m_vec[i] /= vec_norm;

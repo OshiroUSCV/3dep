@@ -136,7 +136,7 @@ public:
 
 	// Maths
 	static float DotProduct(const vec2f v1, const vec2f v2);
-	float GetNorm() const;
+	float Mag() const;	// Magnitude
 	void Normalize();
 
 	///////////////////////
@@ -144,6 +144,7 @@ public:
 	void Print();
 };
 // vec2f: Operator Overloads
+vec2f operator-(const vec2f v);
 vec2f operator+(const vec2f v1, const vec2f v2);
 vec2f operator-(const vec2f v1, const vec2f v2);
 vec2f operator*(const float fScalar, const vec2f vec);
@@ -205,7 +206,7 @@ public:
 	// Math
 	static float DotProduct(const vec3f v1, const vec3f v2);
 	static vec3f CrossProduct(const vec3f v1, const vec3f v2);
-	float GetNorm() const;
+	float Mag() const; // Magnitude
 	void Normalize();
 
 	///////////////////////
@@ -214,6 +215,7 @@ public:
 };
 
 // vec3f: Operator Overloads
+vec3f operator-(const vec3f v);
 vec3f operator+(const vec3f v1, const vec3f v2);
 vec3f operator-(const vec3f v1, const vec3f v2);
 vec3f operator*(const float fScalar, const vec3f vec);
@@ -281,7 +283,7 @@ public:
 	// Maths
 	static float DotProduct(const vec4f v1, const vec4f v2);
 	//static vec3f CrossProduct(const vec3f v1, const vec3f v2);
-	float GetNorm() const;
+	float Mag() const;	// Magnitude
 	void Normalize();
 
 	///////////////////////
